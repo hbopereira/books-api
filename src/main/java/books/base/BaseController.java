@@ -41,12 +41,9 @@ public class BaseController<ENTITY extends BaseEntity, REPOSITORY extends BaseRe
 		return ResponseEntity.badRequest().build();
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping
 	@CrossOrigin(origins = "http://localhost:3000")
-	public ResponseEntity<String> put(@PathVariable("id") String id, @RequestBody ENTITY entity) {
-		if (!id.equals(entity.getId())) {
-			return ResponseEntity.badRequest().build();
-		}
+	public ResponseEntity<String> put(@RequestBody ENTITY entity) {
 		Optional<ENTITY> resultado = service.salvar(entity);
 		if (resultado.isPresent()) {
 			return ResponseEntity.ok(resultado.get().getId().toString());
